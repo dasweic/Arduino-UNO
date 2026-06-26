@@ -1,6 +1,6 @@
 #include <Arduino.h>
 #include <Servo.h>
-
+// https://youtube.com/shorts/TglL1oOJpIk?si=ZwVsaGQAtyWJ3dz7
 
 Servo myServo;
 //  brown = GND     red = +5V     yellow/orange = Signal(output)
