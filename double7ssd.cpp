@@ -1,6 +1,10 @@
 #include <Arduino.h>
+int a=2, b=3,c=4,d=5,e=6,f=7,g=8;
+int a2=9,b2=10,c2=11,d2=A0,e2=A1,f2=A2,g2=A3;
 
-int seg10Pins[7] = {2,3,4,5,6,7,8};   //Left 7ssd 
+//int seg10Pins[7] = {2,3,4,5,6,7,8};   //Left 7ssd 
+int seg10Pins[7] = {a,b,c,d,e,f,g};
+
 /*
 2 a
 3 b
@@ -11,7 +15,8 @@ int seg10Pins[7] = {2,3,4,5,6,7,8};   //Left 7ssd
 8 g
 */
 
-int seg1Pins[7] = {9,10,11,A0,A1,A2,A3};  //Right 7ssd
+//int seg1Pins[7] = {9,10,11,A0,A1,A2,A3};  //Right 7ssd
+int seg1Pins = {a2,b2,c2,d2,e2,f2,g2};
 /*
 9 a
 10 b
