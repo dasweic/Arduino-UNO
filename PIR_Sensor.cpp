@@ -1,5 +1,5 @@
 #include <Arduino.h>
-
+//   https://youtube.com/shorts/LWYHoIOzEqI?si=ie6cA5l-_5Kp23FP
 int pir_pin = 6;
 int buzzer = 7;
 
