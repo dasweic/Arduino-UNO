@@ -1,88 +1,85 @@
 #include <Arduino.h>
-int a=2, b=3,c=4,d=5,e=6,f=7,g=8;
-int a2=9,b2=10,c2=11,d2=A0,e2=A1,f2=A2,g2=A3;
 
-//int seg10Pins[7] = {2,3,4,5,6,7,8};   //Left 7ssd 
-int seg10Pins[7] = {a,b,c,d,e,f,g};
+// Left Display
+int seg10Pins[7] = {2, 3, 4, 5, 6, 7, 8};
 
-/*
-2 a
-3 b
-4 c
-5 d
-6 e
-7 f
-8 g
-*/
+// Right Display
+int seg1Pins[7] = {9, 10, 11, A0, A1, A2, A3};
 
-//int seg1Pins[7] = {9,10,11,A0,A1,A2,A3};  //Right 7ssd
-int seg1Pins = {a2,b2,c2,d2,e2,f2,g2};
-/*
-9 a
-10 b
-11 c
-A0 d
-A1 e
-A2 f
-A3 g
-*/
-byte digits[10][8] =
+// Common Cathode Pins
+int left_ssd_cc = A4;
+int right_ssd_cc = A5;
+
+// Digits (a,b,c,d,e,f,g)
+byte digits[10][7] =
 {
-  {1,1,1,1,1,1,0,0}, //0
-  {0,1,1,0,0,0,0,0}, //1
-  {1,1,0,1,1,0,1,0}, //2
-  {1,1,1,1,0,0,1,0}, //3
-  {0,1,1,0,0,1,1,0}, //4
-  {1,0,1,1,0,1,1,0}, //5
-  {1,0,1,1,1,1,1,0}, //6
-  {1,1,1,0,0,0,0,0}, //7
-  {1,1,1,1,1,1,1,0}, //8
-  {1,1,1,1,0,1,1,0}  //9
+  {1,1,1,1,1,1,0}, //0
+  {0,1,1,0,0,0,0}, //1
+  {1,1,0,1,1,0,1}, //2
+  {1,1,1,1,0,0,1}, //3
+  {0,1,1,0,0,1,1}, //4
+  {1,0,1,1,0,1,1}, //5
+  {1,0,1,1,1,1,1}, //6
+  {1,1,1,0,0,0,0}, //7
+  {1,1,1,1,1,1,1}, //8
+  {1,1,1,1,0,1,1}  //9
 };
 
-void displayDigitL(int tens)
+void displayDigitL(int digit)
 {
-  for(int i=0; i<=7; i++)
+  for (int i = 0; i < 7; i++)
   {
-    digitalWrite(seg10Pins[i], digits[tens][i]);
+    digitalWrite(seg10Pins[i], digits[digit][i]);
   }
 }
 
-void displayDigitR(int ones)
+void displayDigitR(int digit)
 {
-  for(int i=0; i<=7; i++)
+  for (int i = 0; i < 7; i++)
   {
-    digitalWrite(seg1Pins[i], digits[ones][i]);
+    digitalWrite(seg1Pins[i], digits[digit][i]);
   }
 }
 
-void displayNumber(int num)     //code to display double digit number.
+void displayNumber(int num)
 {
-  int t = num / 10;
-  int o = num % 10;
-  displayDigitL(t);
-  displayDigitR(o);
+  int tens = num / 10;
+  int ones = num % 10;
+
+  displayDigitL(tens);
+  displayDigitR(ones);
 }
 
 void setup()
 {
-  for(int i=0; i<8; i++)
-  {
-    pinMode(seg1Pins[i], OUTPUT);
-  }
-  for(int i=0; i<8; i++)
+  // Left display pins
+  for (int i = 0; i < 7; i++)
   {
     pinMode(seg10Pins[i], OUTPUT);
   }
-  pinMode(A5, OUTPUT);  // Right ssd common cathode
-  pinMode(A4, OUTPUT);  // Left ssd common cathode
 
+  // Right display pins
+  for (int i = 0; i < 7; i++)
+  {
+    pinMode(seg1Pins[i], OUTPUT);
+  }
+
+  pinMode(left_ssd_cc, OUTPUT);
+  pinMode(right_ssd_cc, OUTPUT);
+
+  // Enable Common Cathode displays
+  digitalWrite(left_ssd_cc, LOW);
+  digitalWrite(right_ssd_cc, LOW);
 }
 
 void loop()
 {
-  //  for example :   
   displayNumber(72);
-  
+  delay(1000);
+  for(int i = 0; i <= 99; i++)
+  {
+    displayNumber(i);
+    delay(5);
+  }
   
 }
