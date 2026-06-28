@@ -35,56 +35,55 @@ int irsense_2()
     return digitalRead(irPin2);
 }
 
-void RB() {
-  digitalWrite(IN1, LOW);
-  digitalWrite(IN2, HIGH);
-  analogWrite(ENA, 255);
-}
-
-void LB() {
-  digitalWrite(IN3, HIGH);
-  digitalWrite(IN4, LOW);
-  analogWrite(ENB, 255);
-}
-
-void RF(){
-  digitalWrite(IN1, HIGH);
-  digitalWrite(IN2, LOW);
-  analogWrite(ENA, 150);
-}
-
-void LF(){
-  digitalWrite(IN3, LOW);
-  digitalWrite(IN4, HIGH);
-  analogWrite(ENB, 150);
-}
-void brake(){
-    analogWrite(ENA, 0);
-    analogWrite(ENB, 0);
-}
-void loop()
-{
-    if (irsense_1() == HIGH && irsense_2() == LOW)
+void RightWheel(int x) {
+    if (x<0)
     {
-        LF();
+        /* BACKWARD */
+        digitalWrite(IN1, LOW);
+        digitalWrite(IN2, HIGH);
+        analogWrite(ENA, 255);
+    }
+    else if (x>0)
+    {
+        /* FORWARD */
+        digitalWrite(IN1, HIGH);
+        digitalWrite(IN2, LOW);
+        analogWrite(ENA, 150);
+    }
+    else if (x==0)
+    {
+        // BRAKE
+        digitalWrite(IN1, LOW);
+        digitalWrite(IN2, LOW);
         analogWrite(ENA, 0);
     }
-    else if (irsense_1() == LOW && irsense_2() == HIGH)
-    {
-        RF();
-        analogWrite(ENB, 0);
-    }
-    else if (irsense_1() == HIGH && irsense_2() == HIGH)
-    {
-        LF();
-        RF();
-    }
-    else
-    {
-        brake();
-    }
-
-    delay(100);
 }
 
+void LeftWheel(int x) {
+    if (x<0)
+    {
+        /* BACKWARD */
+        digitalWrite(IN4, LOW);
+        digitalWrite(IN3, HIGH);
+        analogWrite(ENB, 255);
+    }
+    else if (x>0)
+    {
+        /* FORWARD */
+        digitalWrite(IN4, HIGH);
+        digitalWrite(IN3, LOW);
+        analogWrite(ENB, 150);
+    }
+    else if (x==0)
+    {
+        // BRAKE
+        digitalWrite(IN3, LOW);
+        digitalWrite(IN4, LOW);
+        analogWrite(ENB, 0);
+    }
+}
 
+void brake(){
+    RightWheel(0);
+    LeftWheel(0);
+}
