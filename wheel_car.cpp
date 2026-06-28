@@ -7,8 +7,8 @@ const int ENA = 5;      //RIGHT MOTOR
 const int IN1 = 6;
 const int IN2 = 7;
 
-const int irPin1 = A0;       
-const int irPin2 = A1;
+const int irPin1 = A0;       //LEFT SENSOR
+const int irPin2 = A1;       //RIGHT SENSOR
 
 // Left Motor
 const int ENB = 9;      //LEFT MOTOR
@@ -48,7 +48,7 @@ void RightWheel(int x) {
         /* FORWARD */
         digitalWrite(IN1, HIGH);
         digitalWrite(IN2, LOW);
-        analogWrite(ENA, 150);
+        analogWrite(ENA, 255);
     }
     else if (x==0)
     {
@@ -72,7 +72,7 @@ void LeftWheel(int x) {
         /* FORWARD */
         digitalWrite(IN4, HIGH);
         digitalWrite(IN3, LOW);
-        analogWrite(ENB, 150);
+        analogWrite(ENB, 255);
     }
     else if (x==0)
     {
@@ -86,4 +86,36 @@ void LeftWheel(int x) {
 void brake(){
     RightWheel(0);
     LeftWheel(0);
+}
+
+void loop()
+{
+    int left  = irsense_1();
+    int right = irsense_2();
+
+    // Black = LOW, White = HIGH
+
+    if (left == HIGH && right == HIGH)
+    {
+        // Dono white -> line beech me hai
+        LeftWheel(1);
+        RightWheel(1);
+    }
+    else if (left == LOW && right == HIGH)
+    {
+        // Left sensor black
+        LeftWheel(0);
+        RightWheel(1);
+    }
+    else if (left == HIGH && right == LOW)
+    {
+        // Right sensor black
+        LeftWheel(1);
+        RightWheel(0);
+    }
+    else
+    {
+        // Dono black
+        brake();
+    }
 }
