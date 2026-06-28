@@ -1,3 +1,5 @@
+// WORKING
+
 #include <Arduino.h>
 
 // Right Motor
@@ -60,24 +62,29 @@ void brake(){
     analogWrite(ENA, 0);
     analogWrite(ENB, 0);
 }
-
-void loop() {
-    if (irsense_1() == HIGH && irsense_2()==LOW)
+void loop()
+{
+    if (irsense_1() == HIGH && irsense_2() == LOW)
     {
-        Serial.println("Colour is White");
         LF();
         analogWrite(ENA, 0);
-    
-    }    
-    else if (irsense_2()==HIGH && irsense_1==LOW){
+    }
+    else if (irsense_1() == LOW && irsense_2() == HIGH)
+    {
         RF();
         analogWrite(ENB, 0);
     }
-    else if (irsense_1()==HIGH && irsense_2()==HIGH)
+    else if (irsense_1() == HIGH && irsense_2() == HIGH)
     {
         LF();
         RF();
     }
+    else
+    {
+        brake();
+    }
+
     delay(100);
-    
 }
+
+
