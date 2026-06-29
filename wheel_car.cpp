@@ -1,5 +1,3 @@
-// WORKING
-
 #include <Arduino.h>
 
 // Right Motor
@@ -41,14 +39,14 @@ void RightWheel(int x) {
         /* BACKWARD */
         digitalWrite(IN1, LOW);
         digitalWrite(IN2, HIGH);
-        analogWrite(ENA, 255);
+        analogWrite(ENA, 50);
     }
     else if (x>0)
     {
         /* FORWARD */
         digitalWrite(IN1, HIGH);
         digitalWrite(IN2, LOW);
-        analogWrite(ENA, 255);
+        analogWrite(ENA, 50);
     }
     else if (x==0)
     {
@@ -65,14 +63,14 @@ void LeftWheel(int x) {
         /* BACKWARD */
         digitalWrite(IN4, LOW);
         digitalWrite(IN3, HIGH);
-        analogWrite(ENB, 255);
+        analogWrite(ENB, 50);
     }
     else if (x>0)
     {
         /* FORWARD */
         digitalWrite(IN4, HIGH);
         digitalWrite(IN3, LOW);
-        analogWrite(ENB, 255);
+        analogWrite(ENB, 50);
     }
     else if (x==0)
     {
@@ -95,7 +93,7 @@ void loop()
 
     // Black = LOW, White = HIGH
 
-    if (left == HIGH && right == HIGH)
+    if (left == LOW && right == LOW)
     {
         // Dono white -> line beech me hai
         LeftWheel(1);
@@ -104,14 +102,14 @@ void loop()
     else if (left == LOW && right == HIGH)
     {
         // Left sensor black
-        LeftWheel(0);
-        RightWheel(1);
+        LeftWheel(1);
+        RightWheel(0);
     }
     else if (left == HIGH && right == LOW)
     {
         // Right sensor black
-        LeftWheel(1);
-        RightWheel(0);
+        LeftWheel(0);
+        RightWheel(1);
     }
     else
     {
