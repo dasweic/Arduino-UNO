@@ -46,7 +46,7 @@ void RightWheel(int x) {
         /* FORWARD */
         digitalWrite(IN1, HIGH);
         digitalWrite(IN2, LOW);
-        analogWrite(ENA, 50);
+        analogWrite(ENA, 255);
     }
     else if (x==0)
     {
@@ -70,7 +70,7 @@ void LeftWheel(int x) {
         /* FORWARD */
         digitalWrite(IN4, HIGH);
         digitalWrite(IN3, LOW);
-        analogWrite(ENB, 50);
+        analogWrite(ENB, 255);
     }
     else if (x==0)
     {
@@ -84,6 +84,20 @@ void LeftWheel(int x) {
 void brake(){
     RightWheel(0);
     LeftWheel(0);
+}
+
+void right_turn(){
+    analogWrite(ENA, 0);
+    digitalWrite(IN4, HIGH);
+    digitalWrite(IN3, LOW);
+    analogWrite(ENB, 50);
+}
+void left_turn(){
+    analogWrite(ENB, 0);
+    digitalWrite(IN1, HIGH);
+    digitalWrite(IN2, LOW);
+    analogWrite(ENA, 50);
+
 }
 
 void loop()
@@ -102,14 +116,16 @@ void loop()
     else if (left == LOW && right == HIGH)
     {
         // Left sensor black
-        LeftWheel(1);
-        RightWheel(0);
+        //LeftWheel(1);
+        //RightWheel(0);
+        right_turn();
     }
     else if (left == HIGH && right == LOW)
     {
         // Right sensor black
-        LeftWheel(0);
-        RightWheel(1);
+        //LeftWheel(0);
+        //RightWheel(1);
+        left_turn();
     }
     else
     {
