@@ -99,9 +99,13 @@ void left_turn(){
     analogWrite(ENA, 50);
 
 }
-
+void forward(){
+    RightWheel(1);
+    LeftWheel(1);
+}
 void loop()
 {
+    
     int left  = irsense_1();
     int right = irsense_2();
 
@@ -132,4 +136,5 @@ void loop()
         // Dono black
         brake();
     }
+        
 }
