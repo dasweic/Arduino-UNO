@@ -111,7 +111,6 @@ void forward(){
 }
 void loop()
 {
-    /*
     int left  = irsense_1();
     int right = irsense_2();
 
@@ -128,22 +127,20 @@ void loop()
         // Left sensor black
         //LeftWheel(1);
         //RightWheel(0);
-        right_turn();
+        left_turn();
     }
     else if (left == HIGH && right == LOW)
     {
         // Right sensor black
         //LeftWheel(0);
         //RightWheel(1);
-        left_turn();
+        //left_turn();
+        right_turn();
     }
     else
     {
         // Dono black
         brake();
     }
-        */
-    //left_turn();
-    right_turn();
 
 }
