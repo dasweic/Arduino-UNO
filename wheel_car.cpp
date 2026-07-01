@@ -13,6 +13,9 @@ const int ENB = 9;      //LEFT MOTOR
 const int IN3 = 10;
 const int IN4 = 11;
 
+int speed = 40;
+int turn_speed = 20;
+
 void setup() {
   pinMode(ENA, OUTPUT);
   pinMode(IN1, OUTPUT);
@@ -46,7 +49,7 @@ void RightWheel(int x) {
         /* FORWARD */
         digitalWrite(IN1, HIGH);
         digitalWrite(IN2, LOW);
-        analogWrite(ENA, 255);
+        analogWrite(ENA, speed);
     }
     else if (x==0)
     {
@@ -70,7 +73,7 @@ void LeftWheel(int x) {
         /* FORWARD */
         digitalWrite(IN4, HIGH);
         digitalWrite(IN3, LOW);
-        analogWrite(ENB, 255);
+        analogWrite(ENB, speed);
     }
     else if (x==0)
     {
@@ -90,13 +93,13 @@ void right_turn(){
     analogWrite(ENA, 0);
     digitalWrite(IN4, HIGH);
     digitalWrite(IN3, LOW);
-    analogWrite(ENB, 50);
+    analogWrite(ENB, turn_speed);
 }
 void left_turn(){
     analogWrite(ENB, 0);
     digitalWrite(IN1, HIGH);
     digitalWrite(IN2, LOW);
-    analogWrite(ENA, 50);
+    analogWrite(ENA, turn_speed);
 
 }
 void forward(){
