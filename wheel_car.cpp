@@ -14,7 +14,7 @@ const int IN3 = 10;
 const int IN4 = 11;
 
 int speed = 40;
-int turn_speed = 20;
+int turn_speed = 30;
 
 void setup() {
   pinMode(ENA, OUTPUT);
@@ -49,7 +49,7 @@ void RightWheel(int x) {
         /* FORWARD */
         digitalWrite(IN1, HIGH);
         digitalWrite(IN2, LOW);
-        analogWrite(ENA, speed);
+        analogWrite(ENA, speed+7);
     }
     else if (x==0)
     {
@@ -61,14 +61,14 @@ void RightWheel(int x) {
 }
 
 void LeftWheel(int x) {
-    if (x<0)
+    if (x>0)
     {
         /* BACKWARD */
         digitalWrite(IN4, LOW);
         digitalWrite(IN3, HIGH);
-        analogWrite(ENB, 50);
+        analogWrite(ENB, speed);
     }
-    else if (x>0)
+    else if (x<0)
     {
         /* FORWARD */
         digitalWrite(IN4, HIGH);
@@ -91,15 +91,18 @@ void brake(){
 
 void right_turn(){
     analogWrite(ENA, 0);
-    digitalWrite(IN4, HIGH);
-    digitalWrite(IN3, LOW);
+    digitalWrite(IN4, LOW);
+    digitalWrite(IN3, HIGH);
     analogWrite(ENB, turn_speed);
+
+    //analogWrite(ENB, turn_speed);
 }
 void left_turn(){
+    
     analogWrite(ENB, 0);
     digitalWrite(IN1, HIGH);
     digitalWrite(IN2, LOW);
-    analogWrite(ENA, turn_speed);
+    analogWrite(ENA, turn_speed+7);
 
 }
 void forward(){
@@ -108,7 +111,7 @@ void forward(){
 }
 void loop()
 {
-    
+    /*
     int left  = irsense_1();
     int right = irsense_2();
 
@@ -139,5 +142,8 @@ void loop()
         // Dono black
         brake();
     }
-        
+        */
+    //left_turn();
+    right_turn();
+
 }
